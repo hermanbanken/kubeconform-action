@@ -1,3 +1,6 @@
+# Kubeconform
+Run [kubeconform](https://github.com/yannh/kubeconform) in GitHub Actions with ease (without sending your GH_TOKEN's to Docker).
+
 # How to use
 Add .github/workflows/kubeconform.yml with the following contents:
 
@@ -14,8 +17,8 @@ on:
 permissions:
   contents: read
 jobs:
-  golangci:
-    name: lint
+  test:
+    name: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -25,4 +28,5 @@ jobs:
           options: ["-output", "json", "fixtures/invalid.yaml"]
 ```
 
-We recommend running this action in a job separate from other jobs (go test, etc) because different jobs run in parallel.
+# Inspiration
+Inspired by [golangci/golangci-lint-action](https://github.com/golangci/golangci-lint-action).
