@@ -1,0 +1,26 @@
+name: kubeconform
+on:
+  push:
+    tags:
+      - v*
+    branches:
+      - master
+      - main
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: check manifests
+        uses: hermanbanken/kubeconform-action@main
+        continue-on-error: true
+        with:
+          args: "-output json fixtures/invalid.yaml"
+      - name: check manifests
+        uses: hermanbanken/kubeconform-action@main
+        with:
+          args: "-output json fixtures/valid.yaml"
